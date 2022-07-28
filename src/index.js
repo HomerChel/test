@@ -13,9 +13,39 @@ mongoose
     });
 
     app.get('/trademark', async (req, res) => {
-      const trademark = await Trademark.find({trademark: 'NOMAD'});
-      let responseBody = trademark.length > 0 ? trademark : {error: 'Trademark not found'};
-      res.send(responseBody);
+      if (!req.query || !req.query.search) {
+        res.status(400);
+        res.send({error: 'Empty query, please use parameter "search"'});
+        return;
+      };
+
+      const trademark = await Trademark.find({trademark: req.query.search});
+      if (trademark.length > 0) {
+        let responseBody = trademark;
+        res.send(responseBody);
+        return;
+      }
+
+      res.status(400);
+      res.send({error: 'Trademark not found'});
+    });
+
+    app.get('/trademark/fuzzy', async (req, res) => {
+      if (!req.query || !req.query.search) {
+        res.status(400);
+        res.send({error: 'Empty query, please use parameter "search"'});
+        return;
+      };
+
+      const trademark = await Trademark.find({$text: {$search: req.query.search}});
+      if (trademark.length > 0) {
+        let responseBody = trademark;
+        res.send(responseBody);
+        return;
+      }
+
+      res.status(400);
+      res.send({error: 'Trademark not found'});
     });
 
     app.listen(process.env.PORT, () =>
