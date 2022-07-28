@@ -1,7 +1,7 @@
 const AdmZip = require('adm-zip');
 const xml2js = require('xml2js');
 const mongoose = require('mongoose');
-const TrademarkModel = require('../models/trademark');
+const TrademarkModel = require('../src/models/trademark');
 
 const database = 'trademarks';
 const server = '127.0.0.1:27017';
