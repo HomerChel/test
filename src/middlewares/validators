@@ -1,4 +1,4 @@
-exports.validateSearch = async function(req, res) {
+exports.validateSearch = (req, res) => {
   if (!req.query || !req.query.search) {
     res.status(400);
     res.send({error: 'Empty query, please use parameter "search"'});

@@ -1,14 +1,15 @@
 const Trademark = require('../models/trademarkModel');
+const { searchResultFormatter } = require('../utils/responseFormatter');
 
 let trademarkSearch = async (searchPhrase, fuzzy = false) => {
   let searchQuery = fuzzy ? {$text: {$search: searchPhrase}} : {trademark: searchPhrase};
   return await Trademark.find(searchQuery);
 }
 
-exports.trademarkSearch = async function(req, res, fuzzy = false) {
+exports.trademarkSearch = async (req, res, fuzzy = false) => {
   let result = await trademarkSearch(req.query.search, fuzzy);
   if (result.length > 0) {
-    let responseBody = result;
+    let responseBody = searchResultFormatter(result);
     res.send(responseBody);
     return;
   }
