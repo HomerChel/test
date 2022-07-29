@@ -13,15 +13,11 @@ mongoose
       res.send('Solution for Vacuumlabs test task');
     });
 
-    app.get('/trademark', (req, res, next) => {
-      if (validateSearch(req, res)) next();
-    }, (req, res) => {
+    app.get('/trademark', validateSearch(), (req, res) => {
       trademarkSearch(req, res);
     });
 
-    app.get('/trademark/fuzzy', (req, res, next) => {
-      if (validateSearch(req, res)) next();
-    }, (req, res) => {
+    app.get('/trademark/fuzzy', validateSearch(), (req, res) => {
       trademarkSearch(req, res, true);
     });
 

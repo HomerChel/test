@@ -1,7 +1,8 @@
 let mongoose = require('mongoose')
 
 let trademarkSchema = new mongoose.Schema({
-  trademark: String,
+  trademark: {type: String, index: true},
+  lowercaseTrademark: {type: String, index: true},
   data: mongoose.Schema.Types.Mixed,
 })
 trademarkSchema.index({trademark: 'text'});

@@ -24,6 +24,7 @@ async function run() {
 
     let tm = new TrademarkModel({
       trademark: trademark,
+      lowercaseTrademark: trademark.toLowerCase(), 
       data: data,
     });
 
@@ -39,7 +40,7 @@ async function run() {
           let xmlData = zipEntry.getData().toString();
           await xml2js.parseStringPromise(xmlData).then(async function (result) {
             if (result.Transaction.TradeMarkTransactionBody[0].TransactionContentDetails[0].TransactionData[0].TradeMarkDetails[0].TradeMark[0].MarkFeature[0] === 'Word') {
-              await addToDB(result).catch(err => console.log(`Error inserting in mongodb: ${err}`));
+              await addToDB(result).catch(err => console.log(`Error inserting in mongodb: ${err}\nfilename: ${zipEntry.entryName}`));
             }
           });
         }

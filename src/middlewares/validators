@@ -1,8 +1,10 @@
-exports.validateSearch = (req, res) => {
-  if (!req.query || !req.query.search) {
-    res.status(400);
-    res.send({error: 'Empty query, please use parameter "search"'});
-    return false;
-  };
-  return true;
+exports.validateSearch = () => {
+  return (req, res, next) => {
+    if (!req.query || !req.query.search) {
+      res.status(400);
+      res.send({error: "Empty query, please use parameter 'search'"});
+      return;
+    };
+    next();
+  }
 };

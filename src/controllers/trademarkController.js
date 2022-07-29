@@ -2,7 +2,7 @@ const Trademark = require('../models/trademarkModel');
 const { searchResultFormatter } = require('../utils/responseFormatter');
 
 let trademarkSearch = async (searchPhrase, fuzzy = false) => {
-  let searchQuery = fuzzy ? {$text: {$search: searchPhrase}} : {trademark: searchPhrase};
+  let searchQuery = fuzzy ? {$text: {$search: searchPhrase}} : {lowercaseTrademark: searchPhrase.toLowerCase()};
   return await Trademark.find(searchQuery);
 }
 
