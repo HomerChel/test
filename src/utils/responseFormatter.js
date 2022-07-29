@@ -1,7 +1,10 @@
 exports.searchResultFormatter = (rawData) => {
-  let result = [];
+  let data = {
+    count: 0,
+    results: []
+  };
   for (const entry of rawData) {
-    result.push({
+    data.results.push({
       trademark: entry.trademark,
       TransactionIdentifier: entry.data.Transaction.TradeMarkTransactionBody[0].TransactionContentDetails[0].TransactionIdentifier[0],
       TransactionCode: entry.data.Transaction.TradeMarkTransactionBody[0].TransactionContentDetails[0].TransactionCode[0],
@@ -12,5 +15,6 @@ exports.searchResultFormatter = (rawData) => {
       TradeDistinctivenessIndicator: entry.data.Transaction.TradeMarkTransactionBody[0].TransactionContentDetails[0].TransactionData[0].TradeMarkDetails[0].TradeMark[0].TradeDistinctivenessIndicator[0],
     });
   }
-  return result;
+  data.count = data.results.length;
+  return data;
 }

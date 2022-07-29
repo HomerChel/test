@@ -14,6 +14,5 @@ exports.trademarkSearch = async (req, res, fuzzy = false) => {
     return;
   }
 
-  res.status(400);
-  res.send({error: 'Trademark not found'});
+  res.send({message: 'Trademark not found'});
 };
