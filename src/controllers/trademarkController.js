@@ -1,13 +1,18 @@
 const Trademark = require('../models/trademarkModel');
 const { searchResultFormatter } = require('../utils/responseFormatter');
 
-let trademarkSearch = async (searchPhrase, fuzzy = false) => {
-  let searchQuery = fuzzy ? {$text: {$search: searchPhrase}} : {lowercaseTrademark: searchPhrase.toLowerCase()};
+let trademarkSearch = async (searchPhrase, fuzzy = false, caseSensitive = false) => {
+  let searchQuery = '';
+  if (fuzzy) {
+    searchQuery = {$text: {$search: searchPhrase}};
+  } else {
+    searchQuery = caseSensitive ? {trademark: searchPhrase} : {lowercaseTrademark: searchPhrase.toLowerCase()};
+  }
   return await Trademark.find(searchQuery);
 }
 
 exports.trademarkSearch = async (req, res, fuzzy = false) => {
-  let result = await trademarkSearch(req.query.search, fuzzy);
+  let result = await trademarkSearch(req.query.search, fuzzy, !fuzzy && req.query.case_sensitive === 'true');
   if (result.length > 0) {
     let responseBody = searchResultFormatter(result);
     res.send(responseBody);
