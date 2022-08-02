@@ -20,12 +20,23 @@ node ^16.0.0
 
 ## Usage:
 
-Endpoint for exact trademark: 
-``` 
-/trademark?search=search query
-```
+### Search exact trademark: 
+* **URL**: `/trademark`  
+* **Method**: `GET`  
+* **URL parameters**:  
+    **Required**:  
+    `search=[string]`  
+    **Optional**:  
+    `case_sensitive=[true|false]` (false by default)
 
-Endpoint for fuzzy search:  
-```
-/trademark/fuzzy?search=search query
-```
+### Fuzzy search:  
+* **URL**: `/trademark/fuzzy`  
+* **Method**: `GET`  
+* **URL parameters**:  
+    **Required**:  
+    `search=[string]`  
+
+### Test API address:  
+`http://34.116.238.133:3000`
+
+
