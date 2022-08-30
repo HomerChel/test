@@ -10,7 +10,7 @@ mongoose
     const app = express();
 
     app.get('/', (req, res) => {
-      res.send('Solution for Vacuumlabs test task');
+      res.send('Solution for test task');
     });
 
     app.get('/trademark', validateSearch(), (req, res) => {
